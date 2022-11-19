@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:crud/add.dart';
 import 'package:crud/db/db.dart';
 import 'package:crud/home.dart';
 import 'package:crud/view.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -45,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   late Database db;
 
   List allMovies = [];
+  StreamSubscription? streamSubscription;
 
   initialise() {
     db = Database();
@@ -55,8 +59,18 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
-  void initState() {
+  initState() {
     super.initState();
+    streamSubscription =
+        FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: ((context) => MyApp())));
+      } else {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: ((context) => Home())));
+      }
+    });
     initialise();
   }
 
@@ -103,14 +117,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        // TextButton.icon(
-                        //   icon: Icon(Icons.people, size: 16),
-                        //   label: Text('Cadastre-se'),
-                        //   onPressed: () => Navigator.push(
-                        //       context,
-                        //       MaterialPageRoute(
-                        //           builder: (context) => CreateUser())),
-                        // ),
+                        TextButton.icon(
+                          icon: Icon(Icons.people, size: 16),
+                          label: Text('Cadastre-se'),
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CreateUser())),
+                        ),
                         TextButton.icon(
                           icon: Icon(Icons.replay_rounded, size: 16),
                           label: Text('Esqueceu sua senha ?'),
