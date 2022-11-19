@@ -1,6 +1,7 @@
 import 'package:crud/add.dart';
 import 'package:crud/db/db.dart';
 import 'package:crud/view.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -32,6 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
   late Database db;
 
   List allMovies = [];
+  final _firebaseAuth = FirebaseAuth.instance;
 
   initialise() {
     db = Database();
@@ -58,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
           IconButton(
               icon: Icon(Icons.logout),
               onPressed: () {
-                // widget.db.deleteMovie(widget.movie["id"]);
+                sair(); // widget.db.deleteMovie(widget.movie["id"]);
                 // Navigator.pop(context, true);
               })
         ],
@@ -105,5 +107,10 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.add),
       ),
     );
+  }
+
+  sair() async {
+    _firebaseAuth.signOut().then((user) => Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Home())));
   }
 }

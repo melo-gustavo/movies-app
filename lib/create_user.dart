@@ -14,7 +14,7 @@ class CreateUser extends StatefulWidget {
 
 class _CreateUser extends State<CreateUser> {
   final _nomeController = TextEditingController();
-  final _idadeController = TextEditingController();
+  final _password2Controller = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _firebaseAuth = FirebaseAuth.instance;
@@ -44,15 +44,6 @@ class _CreateUser extends State<CreateUser> {
                   height: 20,
                 ),
                 TextFormField(
-                    controller: _idadeController,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                      labelText: "Idade",
-                    )),
-                Container(
-                  height: 20,
-                ),
-                TextFormField(
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
@@ -70,12 +61,30 @@ class _CreateUser extends State<CreateUser> {
                 Container(
                   height: 30,
                 ),
+                TextFormField(
+                    controller: _password2Controller,
+                    keyboardType: TextInputType.name,
+                    decoration: InputDecoration(
+                      labelText: "Confirmação de senha",
+                    )),
+                Container(
+                  height: 20,
+                ),
                 ElevatedButton(
                     child: Text(
                       "Cadastrar",
                     ),
                     onPressed: () {
-                      cadastrar();
+                      if (_passwordController == _password2Controller) {
+                        cadastrar();
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Senhas diferentes'),
+                            backgroundColor: Colors.redAccent,
+                          ),
+                        );
+                      }
                     }),
                 Container(
                   height: 20,
