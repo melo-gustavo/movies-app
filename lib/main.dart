@@ -1,5 +1,6 @@
 import 'package:crud/add.dart';
 import 'package:crud/db/db.dart';
+import 'package:crud/home.dart';
 import 'package:crud/view.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -38,11 +39,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
   late Database db;
-
-  List allCountries = [];
 
   List allMovies = [];
 
@@ -64,50 +61,85 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[900],
-      appBar: AppBar(
-        backgroundColor: Colors.red[800],
-        title: Text(widget.title),
-      ),
-      body: ListView.builder(
-        itemCount: allMovies.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Card(
-            margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
+      body: Center(
+        child: SingleChildScrollView(
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: Padding(
+              padding: const EdgeInsets.all(45.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextFormField(
+                      // controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: inputDecoration("Email")),
+                  Container(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    // controller: _passwordController,
+                    keyboardType: TextInputType.visiblePassword,
+                    obscureText: true,
+                    decoration: inputDecoration("Senha"),
+                  ),
+                  Container(
+                    height: 30,
+                  ),
+                  ElevatedButton(
+                      child: Text(
+                        "Entrar",
+                      ),
+                      onPressed: () {
+                        // login();
+                      }),
+                  Container(
+                    height: 20,
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        // TextButton.icon(
+                        //   icon: Icon(Icons.people, size: 16),
+                        //   label: Text('Cadastre-se'),
+                        //   onPressed: () => Navigator.push(
+                        //       context,
+                        //       MaterialPageRoute(
+                        //           builder: (context) => CreateUser())),
+                        // ),
+                        TextButton.icon(
+                          icon: Icon(Icons.replay_rounded, size: 16),
+                          label: Text('Esqueceu sua senha ?'),
+                          onPressed: () =>
+                              Navigator.of(context).pushNamed('/ranking'),
+                        ),
+                      ]),
+                ],
+              ),
             ),
-            child: ListTile(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => View(
-                              movie: allMovies[index],
-                              db: db,
-                            ))).then((value) => {
-                      if (value != null) {initialise()}
-                    });
-              },
-              contentPadding: EdgeInsets.only(right: 30, left: 36),
-              title: Text(allMovies[index]['name']),
-              trailing: Text(allMovies[index]['language']),
-            ),
-          );
-        },
+          ),
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.red[800],
-        onPressed: () {
-          Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Add(db: db)))
-              .then((value) {
-            if (value != null) {
-              initialise();
-            }
-          });
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+    );
+  }
+
+  InputDecoration inputDecoration(String labelText) {
+    return InputDecoration(
+      focusColor: Colors.red[800],
+      labelStyle: TextStyle(color: Colors.white, fontSize: 20),
+      labelText: labelText,
+      fillColor: Colors.red,
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25.0),
+        borderSide: BorderSide(color: Colors.redAccent),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25.0),
+        borderSide: BorderSide(
+          color: Colors.white,
+          width: 2.0,
+        ),
       ),
     );
   }
