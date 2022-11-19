@@ -46,6 +46,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _firebaseAuth = FirebaseAuth.instance;
   late Database db;
 
   List allMovies = [];
@@ -110,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         "Entrar",
                       ),
                       onPressed: () {
-                        // login();
+                        login();
                       }),
                   Container(
                     height: 20,
@@ -140,6 +143,34 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+
+  login() async {
+    try {
+      UserCredential userCredential =
+          await _firebaseAuth.signInWithEmailAndPassword(
+              email: _emailController.text, password: _passwordController.text);
+      if (userCredential != null) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Home()));
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Usuário não encontrado'),
+            backgroundColor: Colors.redAccent,
+          ),
+        );
+      } else if (e.code == 'wrong-password') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Sua senha está incorreta'),
+            backgroundColor: Colors.redAccent,
+          ),
+        );
+      }
+    }
   }
 
   InputDecoration inputDecoration(String labelText) {

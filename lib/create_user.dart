@@ -1,11 +1,9 @@
-// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:crud/main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-// import 'package:quiz/checagem_page.dart';
-// import 'package:quiz/home_page.dart';
-// import 'package:quiz/app_widget.dart';
 
 class CreateUser extends StatefulWidget {
   const CreateUser({super.key});
@@ -19,7 +17,7 @@ class _CreateUser extends State<CreateUser> {
   final _idadeController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  // final _firebaseAuth = FirebaseAuth.instance;
+  final _firebaseAuth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +75,7 @@ class _CreateUser extends State<CreateUser> {
                       "Cadastrar",
                     ),
                     onPressed: () {
-                      // cadastrar();
+                      cadastrar();
                     }),
                 Container(
                   height: 20,
@@ -90,34 +88,32 @@ class _CreateUser extends State<CreateUser> {
     );
   }
 
-  // cadastrar() async {
-  //   try {
-  //     UserCredential userCredential =
-  //         await _firebaseAuth.createUserWithEmailAndPassword(
-  //             email: _emailController.text, password: _passwordController.text);
-  //     if (userCredential != null) {
-  //       userCredential.user!.updateDisplayName(_nomeController.text);
-  //       Navigator.pushAndRemoveUntil(
-  //           context,
-  //           MaterialPageRoute(builder: (context) => ChecagemPage()),
-  //           (route) => false);
-  //     }
-  //   } on FirebaseAuthException catch (e) {
-  //     if (e.code == 'weak-password') {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(
-  //           content: Text('Senha fraca'),
-  //           backgroundColor: Colors.redAccent,
-  //         ),
-  //       );
-  //     } else if (e.code == 'email-already-in-use') {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(
-  //           content: Text('Este email já foi cadastrado'),
-  //           backgroundColor: Colors.redAccent,
-  //         ),
-  //       );
-  //     }
-  //   }
-  // }
+  cadastrar() async {
+    try {
+      UserCredential userCredential =
+          await _firebaseAuth.createUserWithEmailAndPassword(
+              email: _emailController.text, password: _passwordController.text);
+      if (userCredential != null) {
+        userCredential.user!.updateDisplayName(_nomeController.text);
+        Navigator.pushAndRemoveUntil(context,
+            MaterialPageRoute(builder: (context) => MyApp()), (route) => false);
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Senha fraca'),
+            backgroundColor: Colors.redAccent,
+          ),
+        );
+      } else if (e.code == 'email-already-in-use') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Este email já foi cadastrado'),
+            backgroundColor: Colors.redAccent,
+          ),
+        );
+      }
+    }
+  }
 }
