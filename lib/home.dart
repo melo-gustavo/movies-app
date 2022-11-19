@@ -54,6 +54,14 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Colors.red[800],
         title: Text(widget.title),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: () {
+                // widget.db.deleteMovie(widget.movie["id"]);
+                // Navigator.pop(context, true);
+              })
+        ],
       ),
       body: ListView.builder(
         itemCount: allMovies.length,

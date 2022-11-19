@@ -65,16 +65,16 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   initState() {
     super.initState();
-    streamSubscription =
-        FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user == null) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: ((context) => MyApp())));
-      } else {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: ((context) => Home())));
-      }
-    });
+    // streamSubscription =
+    //     FirebaseAuth.instance.authStateChanges().listen((User? user) {
+    //   if (user == null) {
+    //     Navigator.pushReplacement(
+    //         context, MaterialPageRoute(builder: ((context) => MyApp())));
+    //   } else {
+    //     Navigator.pushReplacement(
+    //         context, MaterialPageRoute(builder: ((context) => Home())));
+    //   }
+    // });
     initialise();
   }
 
@@ -93,14 +93,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextFormField(
-                      // controller: _emailController,
+                      controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: inputDecoration("Email")),
                   Container(
                     height: 20,
                   ),
                   TextFormField(
-                    // controller: _passwordController,
+                    controller: _passwordController,
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: true,
                     decoration: inputDecoration("Senha"),
