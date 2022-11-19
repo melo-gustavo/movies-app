@@ -104,14 +104,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        TextButton.icon(
-                          icon: Icon(Icons.people, size: 16),
-                          label: Text('Cadastre-se'),
-                          onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => CreateUser())),
-                        ),
+                        // TextButton.icon(
+                        //   icon: Icon(Icons.people, size: 16),
+                        //   label: Text('Cadastre-se'),
+                        //   onPressed: () => Navigator.push(
+                        //       context,
+                        //       MaterialPageRoute(
+                        //           builder: (context) => CreateUser())),
+                        // ),
                         TextButton.icon(
                           icon: Icon(Icons.replay_rounded, size: 16),
                           label: Text('Esqueceu sua senha ?'),
