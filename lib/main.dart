@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:crud/add.dart';
 import 'package:crud/create_user.dart';
 import 'package:crud/db/db.dart';
@@ -23,7 +22,6 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -65,16 +63,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   initState() {
     super.initState();
-    // streamSubscription =
-    //     FirebaseAuth.instance.authStateChanges().listen((User? user) {
-    //   if (user == null) {
-    //     Navigator.pushReplacement(
-    //         context, MaterialPageRoute(builder: ((context) => MyApp())));
-    //   } else {
-    //     Navigator.pushReplacement(
-    //         context, MaterialPageRoute(builder: ((context) => Home())));
-    //   }
-    // });
     initialise();
   }
 
@@ -93,6 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextFormField(
+                      style: TextStyle(color: Colors.white),
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: inputDecoration("Email")),
@@ -100,6 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 20,
                   ),
                   TextFormField(
+                    style: TextStyle(color: Colors.white),
                     controller: _passwordController,
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: true,
@@ -109,12 +99,19 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 30,
                   ),
                   ElevatedButton(
-                      child: Text(
-                        "Entrar",
-                      ),
-                      onPressed: () {
-                        login();
-                      }),
+                    child: Text(
+                      "Entrar",
+                    ),
+                    onPressed: () {
+                      login();
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red[800],
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                        textStyle: TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold)),
+                  ),
                   Container(
                     height: 20,
                   ),
@@ -124,6 +121,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         TextButton.icon(
                           icon: Icon(Icons.people, size: 16),
                           label: Text('Cadastre-se'),
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.red[800],
+                          ),
                           onPressed: () => Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -132,6 +132,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         TextButton.icon(
                           icon: Icon(Icons.replay_rounded, size: 16),
                           label: Text('Esqueceu sua senha ?'),
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.red[800],
+                          ),
                           onPressed: () =>
                               Navigator.of(context).pushNamed('/ranking'),
                         ),
