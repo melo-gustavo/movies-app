@@ -80,6 +80,20 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  // ignore_for_file: prefer_const_constructors
+                  Padding(
+                    padding: const EdgeInsets.all(50),
+                    child: Text(
+                      'HardFlix',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 50,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline,
+                          decorationColor: Colors.red,
+                          decorationStyle: TextDecorationStyle.wavy),
+                    ),
+                  ),
                   TextFormField(
                       style: TextStyle(color: Colors.white),
                       controller: _emailController,

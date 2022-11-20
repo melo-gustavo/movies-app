@@ -35,6 +35,7 @@ class _CreateUser extends State<CreateUser> {
           child: Column(
             children: [
               TextFormField(
+                  style: TextStyle(color: Colors.white),
                   controller: _nomeController,
                   keyboardType: TextInputType.name,
                   decoration: inputDecoration("Usuário")),
@@ -42,6 +43,7 @@ class _CreateUser extends State<CreateUser> {
                 height: 20,
               ),
               TextFormField(
+                  style: TextStyle(color: Colors.white),
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   decoration: inputDecoration("Email")),
@@ -49,6 +51,7 @@ class _CreateUser extends State<CreateUser> {
                 height: 20,
               ),
               TextFormField(
+                style: TextStyle(color: Colors.white),
                 controller: _passwordController,
                 keyboardType: TextInputType.visiblePassword,
                 obscureText: true,
@@ -58,8 +61,10 @@ class _CreateUser extends State<CreateUser> {
                 height: 30,
               ),
               TextFormField(
+                  style: TextStyle(color: Colors.white),
                   controller: _password2Controller,
-                  keyboardType: TextInputType.name,
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: true,
                   decoration: inputDecoration("Confirmar Senha")),
               Container(
                 height: 20,
@@ -75,7 +80,7 @@ class _CreateUser extends State<CreateUser> {
                       textStyle:
                           TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
                   onPressed: () {
-                    if (_passwordController == _password2Controller) {
+                    if (_passwordController == _passwordController) {
                       cadastrar();
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
